@@ -1,0 +1,9 @@
+## Interface: 20400
+## Title: Binder
+## Author: Tensai, modified by Macumba and Hardc0re
+## Version: 2.2.0
+## Notes: Addon that allows user to create Keybinding Profiles, for easy switching between different sets
+## SavedVariablesPerCharacter: BinderMinimapSettings, showornot
+## SavedVariables: Binder_Settings
+
+Binder.xml
