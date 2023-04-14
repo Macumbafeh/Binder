@@ -8,11 +8,13 @@ function Binder_OnLoad()
   SlashCmdList["BINDER"] = function(msg)
 		Binder_SlashCommandHandler(msg);
 	end
+	LibKeyBound = LibStub('LibKeyBound-1.0')								 
 end
 
 function Binder_OnEvent()
 	if ( event == "VARIABLES_LOADED" ) then
 		Binder_MinimapButton_Reposition();
+			Minimap_Checkbox_WhenLoaded();						
 		end		
  end
 
@@ -243,6 +245,20 @@ Binder_Settings = {
 --The Almighty Button that WILL create your new profile
 function Create_OnClick(arg1)
 
+ local exists = false;
+	
+	for i = 1, Binder_Settings.ProfilesCreated do 
+		namecheck = Binder_Settings.Profiles[i].Name
+		if (Name_InputBox:GetText() == namecheck) then
+			exists = true
+			out_frame("Profile '"..Binder_Settings.Profiles[i].Name.."' not created because it already exists.")
+			out("Profile '"..Binder_Settings.Profiles[i].Name.."' not created because it already exists.")
+			Name_InputBox:SetText("")
+		end
+	end
+	
+	if (exists == true)then
+	else	 
 	local NewProfileNum = Binder_Settings.ProfilesCreated +1;
 	Binder_Settings.Profiles[NewProfileNum] = {Name = Name_InputBox:GetText(),
 												Description = Description_InputBox:GetText(),
@@ -269,6 +285,8 @@ function Create_OnClick(arg1)
 	
 	BinderScrollBar_Update()	
 end
+	Name_InputBox:ClearFocus()					   
+end 
 
 function Create_Binds()
 
@@ -317,9 +335,14 @@ end
 -- Minimap coding
 
 BinderMinimapSettings = {
-	xposition = 200;
+	Checkbox = nil;
+	xposition = 300;
 	yposition = 0; -- default position of the minimap icon
 }
+
+function Binder_MinimapButton_OnLoad()
+	Binder_MinimapButton:SetPoint("CENTER",BinderMinimapSettings.xposition,BinderMinimapSettings.yposition)
+end
 
 function Binder_MinimapButton_Reposition()
 	local xlim = (((GetScreenWidth() * UIParent:GetEffectiveScale())/2))
@@ -383,15 +406,25 @@ function Minimap_Reset_OnEnter(self)
 	Minimap_Reset_Details(GameTooltip)
 end
 
+function Minimap_Checkbox_WhenLoaded()
+	if (BinderMinimapSettings.Checkbox == 1) then
+		Minimap_CheckButton1:SetChecked(true)
+	else
+		Minimap_CheckButton1:SetChecked(false)
+	end
+	Minimap_Checkbox_OnUpdate()
+end
+
 function Minimap_Checkbox_OnUpdate()
 	if (Minimap_CheckButton1:GetChecked() == 1) then
-	
+		BinderMinimapSettings.Checkbox = 1
 		Binder_MinimapButton:Hide();
 		showornot = 0;
 		--Options_Frame_RadioButton1:Disable()
 		--Options_Frame_RadioButton2:Disable()
 		
 	else
+		BinderMinimapSettings.Checkbox = nil
 		Binder_MinimapButton:Show();
 		
 		--Options_Frame_RadioButton1:Enable()
@@ -414,6 +447,10 @@ function Binder_ApplyButton_OnEnter(self)
 	Binder_ApplyButton_Details(GameTooltip)
 end
 
+function Defaults_OnClick(arg1)
+	LoadBindings(0)
+	SaveBindings(2)
+end
 function Apply_OnClick(arg1)
 
 	LoadBindings(0)
@@ -452,7 +489,7 @@ function Apply_OnClick(arg1)
 		end
 	end
 	
-	--SaveBindings(2)
+	SaveBindings(2)
 	out_frame("Profile "..ProfileName_OnButton.." has been loaded")
 end
 
@@ -519,6 +556,7 @@ function DeleteAll_Button_OnClick()
 	for i = 1, Binder_Settings.ProfilesCreated do
 		Binder_Settings.Profiles[i] = nil
 	end
+	Currently_Selected_Profile_Num = 0						   
 	Binder_Settings.ProfilesCreated = 0
 	BinderScrollBar_Update()
 	out_frame("All profiles are erased.")
@@ -548,6 +586,151 @@ function Close_Button_OnEnter(self)
 	Close_Button_Details(GameTooltip)
 end
 
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
+--**************************************************************************************
 
 
+local f = CreateFrame("frame")
+
+local LibKeyBound = LibStub:GetLibrary("LibKeyBound-1.0")
+
+f:RegisterEvent("PLAYER_LOGIN")
+
+f:SetScript("OnEvent", function(self, event, ...)
+  if self[event] then
+    return self[event](self, event, ...)
+  end
+end)
+
+f.BindMapping = {
+  ActionButton1               = "ACTIONBUTTON1",
+  ActionButton2               = "ACTIONBUTTON2",
+  ActionButton3               = "ACTIONBUTTON3",
+  ActionButton4               = "ACTIONBUTTON4",
+  ActionButton5               = "ACTIONBUTTON5",
+  ActionButton6               = "ACTIONBUTTON6",
+  ActionButton7               = "ACTIONBUTTON7",
+  ActionButton8               = "ACTIONBUTTON8",
+  ActionButton9               = "ACTIONBUTTON9",
+  ActionButton10              = "ACTIONBUTTON10",
+  ActionButton11              = "ACTIONBUTTON11",
+  ActionButton12              = "ACTIONBUTTON12",
+  MultiBarBottomLeftButton1   = "MULTIACTIONBAR1BUTTON1",
+  MultiBarBottomLeftButton2   = "MULTIACTIONBAR1BUTTON2",
+  MultiBarBottomLeftButton3   = "MULTIACTIONBAR1BUTTON3",
+  MultiBarBottomLeftButton4   = "MULTIACTIONBAR1BUTTON4",
+  MultiBarBottomLeftButton5   = "MULTIACTIONBAR1BUTTON5",
+  MultiBarBottomLeftButton6   = "MULTIACTIONBAR1BUTTON6",
+  MultiBarBottomLeftButton7   = "MULTIACTIONBAR1BUTTON7",
+  MultiBarBottomLeftButton8   = "MULTIACTIONBAR1BUTTON8",
+  MultiBarBottomLeftButton9   = "MULTIACTIONBAR1BUTTON9",
+  MultiBarBottomLeftButton10  = "MULTIACTIONBAR1BUTTON10",
+  MultiBarBottomLeftButton11  = "MULTIACTIONBAR1BUTTON11",
+  MultiBarBottomLeftButton12  = "MULTIACTIONBAR1BUTTON12",
+  MultiBarBottomRightButton1  = "MULTIACTIONBAR2BUTTON1",
+  MultiBarBottomRightButton2  = "MULTIACTIONBAR2BUTTON2",
+  MultiBarBottomRightButton3  = "MULTIACTIONBAR2BUTTON3",
+  MultiBarBottomRightButton4  = "MULTIACTIONBAR2BUTTON4",
+  MultiBarBottomRightButton5  = "MULTIACTIONBAR2BUTTON5",
+  MultiBarBottomRightButton6  = "MULTIACTIONBAR2BUTTON6",
+  MultiBarBottomRightButton7  = "MULTIACTIONBAR2BUTTON7",
+  MultiBarBottomRightButton8  = "MULTIACTIONBAR2BUTTON8",
+  MultiBarBottomRightButton9  = "MULTIACTIONBAR2BUTTON9",
+  MultiBarBottomRightButton10 = "MULTIACTIONBAR2BUTTON10",
+  MultiBarBottomRightButton11 = "MULTIACTIONBAR2BUTTON11",
+  MultiBarBottomRightButton12 = "MULTIACTIONBAR2BUTTON12",
+  MultiBarLeftButton1         = "MULTIACTIONBAR4BUTTON1",
+  MultiBarLeftButton2         = "MULTIACTIONBAR4BUTTON2",
+  MultiBarLeftButton3         = "MULTIACTIONBAR4BUTTON3",
+  MultiBarLeftButton4         = "MULTIACTIONBAR4BUTTON4",
+  MultiBarLeftButton5         = "MULTIACTIONBAR4BUTTON5",
+  MultiBarLeftButton6         = "MULTIACTIONBAR4BUTTON6",
+  MultiBarLeftButton7         = "MULTIACTIONBAR4BUTTON7",
+  MultiBarLeftButton8         = "MULTIACTIONBAR4BUTTON8",
+  MultiBarLeftButton9         = "MULTIACTIONBAR4BUTTON9",
+  MultiBarLeftButton10        = "MULTIACTIONBAR4BUTTON10",
+  MultiBarLeftButton11        = "MULTIACTIONBAR4BUTTON11",
+  MultiBarLeftButton12        = "MULTIACTIONBAR4BUTTON12",
+  MultiBarRightButton1        = "MULTIACTIONBAR3BUTTON1",
+  MultiBarRightButton2        = "MULTIACTIONBAR3BUTTON2",
+  MultiBarRightButton3        = "MULTIACTIONBAR3BUTTON3",
+  MultiBarRightButton4        = "MULTIACTIONBAR3BUTTON4",
+  MultiBarRightButton5        = "MULTIACTIONBAR3BUTTON5",
+  MultiBarRightButton6        = "MULTIACTIONBAR3BUTTON6",
+  MultiBarRightButton7        = "MULTIACTIONBAR3BUTTON7",
+  MultiBarRightButton8        = "MULTIACTIONBAR3BUTTON8",
+  MultiBarRightButton9        = "MULTIACTIONBAR3BUTTON9",
+  MultiBarRightButton10       = "MULTIACTIONBAR3BUTTON10",
+  MultiBarRightButton11       = "MULTIACTIONBAR3BUTTON11",
+  MultiBarRightButton12       = "MULTIACTIONBAR3BUTTON12",
+}
+
+
+function f:GetHotkey()
+  return LibKeyBound:ToShortKey(GetBindingKey(self:GetBindAction()))
+end
+
+function f:GetBindAction()
+  return f.BindMapping[self:GetName()]
+end
+
+function f:SetKey(key)
+  SetBinding(key, f.BindMapping[self:GetName()])
+end
+
+function f:GetBindings()
+  local keys
+  local binding = self:GetBindAction()
+  for i = 1, select("#", GetBindingKey(binding)) do
+    local hotKey = select(i, GetBindingKey(binding))
+    if keys then
+      keys = keys .. ", " .. GetBindingText(hotKey, "KEY_")
+    else
+      keys = GetBindingText(hotKey, "KEY_")
+    end
+  end
+  return keys
+end
+
+function f:ClearBindings()
+  local binding = self:GetBindAction()
+  while GetBindingKey(binding) do
+    SetBinding(GetBindingKey(binding), nil)
+  end
+end
+
+function f:PLAYER_LOGIN()
+  for name, _ in pairs(f.BindMapping) do
+    local button = getglobal(name)
+    if button then
+      local OnEnter = button:GetScript("OnEnter")
+      button:SetScript("OnEnter", function(self)
+        LibKeyBound:Set(self)
+        return OnEnter and OnEnter(self)
+      end)
+      button.GetHotkey = self.GetHotkey
+      button.SetKey = self.SetKey
+      button.GetBindings = self.GetBindings
+      button.GetBindAction = self.GetBindAction
+      button.ClearBindings = self.ClearBindings
+    end
+  end
+
+  print("Type /kb to activate KeyBound.")
+  self:UnregisterEvent("PLAYER_LOGIN")
+  self.PLAYER_LOGIN = nil
+end
 
