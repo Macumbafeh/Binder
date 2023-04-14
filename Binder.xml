@@ -841,6 +841,21 @@
 				</Scripts>
 			</Button>
 		
+		  <Button name="KeyBound_Button" inherits="UIPanelButtonTemplate" text="Edit Keybinds">
+				<Size>
+					<AbsDimension x="150" y="35"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="Minimap_CheckButton1">
+						<Offset> <AbsDimension x="0" y="-40"/> </Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						LibKeyBound:Toggle()
+					</OnClick>
+				</Scripts>
+			</Button>
 		<!--
 			<Button name="Truedeleteall_Button" inherits="UIPanelButtonTemplate" text="Delete all">
 				<Size>
