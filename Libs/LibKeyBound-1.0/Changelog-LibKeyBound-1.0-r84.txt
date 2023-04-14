@@ -1,0 +1,63 @@
+------------------------------------------------------------------------
+r84 | nevcairiel | 2008-10-12 11:39:52 +0000 (Sun, 12 Oct 2008) | 1 line
+Changed paths:
+   M /trunk/LibKeyBound-1.0.toc
+
+Patch 3.0 prep: Remove LoD from Libraries that have no load manager (LoD+OptDep Bug)
+------------------------------------------------------------------------
+r83 | nevcairiel | 2008-10-09 21:54:42 +0000 (Thu, 09 Oct 2008) | 1 line
+Changed paths:
+   M /trunk/LibKeyBound-1.0/Locale-deDE.lua
+   M /trunk/LibKeyBound-1.0/Locale-enUS.lua
+   M /trunk/LibKeyBound-1.0/Locale-esES.lua
+   M /trunk/LibKeyBound-1.0/Locale-esMX.lua
+   M /trunk/LibKeyBound-1.0/Locale-frFR.lua
+   M /trunk/LibKeyBound-1.0/Locale-koKR.lua
+   M /trunk/LibKeyBound-1.0/Locale-ruRU.lua
+   M /trunk/LibKeyBound-1.0/Locale-zhCN.lua
+   M /trunk/LibKeyBound-1.0/Locale-zhTW.lua
+
+WoWAce Post-Processing: Virtually inflate Library Revision numbers for proper upgrade path
+------------------------------------------------------------------------
+r82 | nevcairiel | 2008-10-09 21:53:28 +0000 (Thu, 09 Oct 2008) | 1 line
+Changed paths:
+   M /trunk/LibKeyBound-1.0/LibKeyBound-1.0.lua
+
+WoWAce Post-Processing: Virtually inflate Library Revision numbers for proper upgrade path
+------------------------------------------------------------------------
+r81 | tuller | 2008-10-01 20:31:36 +0000 (Wed, 01 Oct 2008) | 2 lines
+Changed paths:
+   M /trunk/LibKeyBound-1.0/LibKeyBound-1.0.lua
+
+LibKeyBound-1.0:
+Changed sounds
+------------------------------------------------------------------------
+r80 | tuller | 2008-10-01 20:14:03 +0000 (Wed, 01 Oct 2008) | 3 lines
+Changed paths:
+   M /trunk/LibKeyBound-1.0/LibKeyBound-1.0.lua
+   M /trunk/LibKeyBound-1.0/Locale-enUS.lua
+
+LibKeyBound-1.0:
+Set minor version to arbitrarily high number so that updates will happen.
+Made dialog box not look like crap
+------------------------------------------------------------------------
+r79 | root | 2008-09-29 21:39:53 +0000 (Mon, 29 Sep 2008) | 1 line
+Changed paths:
+   A /trunk/.pkgmeta
+
+Facilitate WowAce-on-CurseForge transition
+------------------------------------------------------------------------
+r77 | root | 2008-09-29 20:58:17 +0000 (Mon, 29 Sep 2008) | 1 line
+Changed paths:
+   D /tmp/trunk/LibKeyBound-1.0
+   A /trunk (from /tmp/trunk/LibKeyBound-1.0:76)
+
+Importing old repo data under /trunk
+------------------------------------------------------------------------
+r76 | whyv | 2008-08-25 10:26:55 +0000 (Mon, 25 Aug 2008) | 2 lines
+Changed paths:
+   M /tmp/trunk/LibKeyBound-1.0/LibKeyBound-1.0/Locale-zhTW.lua
+
+LibKeyBound-1.0:
+- fix zhTW typo
+------------------------------------------------------------------------
