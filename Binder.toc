@@ -1,4 +1,4 @@
-## Interface: 20400
+## Interface: 30300
 ## Title: Binder
 ## Author: Tensai, modified by Macumba and Hardc0re
 ## Version: 2.2.0

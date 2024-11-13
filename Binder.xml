@@ -24,19 +24,7 @@
 		<Size>
 		  <AbsDimension x="220" y="19" />
 		</Size>
-		<ButtonText name="$parentText">
-            <Size>
-                <AbsDimension x="0" y="0"/>
-            </Size>
-            <Anchors>
-                <Anchor point="LEFT">
-                    <Offset>
-                        <AbsDimension x="5" y="1"/>
-                    </Offset>
-                </Anchor>
-            </Anchors>
-        </ButtonText>
-        <NormalFont inherits="Font_For_Selection_Buttons" justifyH="LEFT"/>
+		<NormalFont style="Font_For_Selection_Buttons"/>
 	</Button>
 	
 	<Font name="Font_For_Selection_Buttons" font="Fonts\FRIZQT__.TTF" virtual="true" justifyH="LEFT">
@@ -184,7 +172,7 @@
                 </FontString>
 			</Layer>
 			<Layer level="BACKGROUND">
-				<Texture name="$parentTexture" file="Interface\AddOns\Binder\UI-Achievement-Parchment">
+				<Texture name="$parentTexture" file="Interface\AchievementFrame\UI-Achievement-Parchment">
 					<Size>
 						<AbsDimension x="243" y="106"/>
 					</Size>
@@ -213,7 +201,7 @@
 				</Anchors>
 				<Scripts>
 					<OnVerticalScroll>
-						FauxScrollFrame_OnVerticalScroll(19, BinderScrollBar_Update);
+						FauxScrollFrame_OnVerticalScroll(this, offset, 19, BinderScrollBar_Update);
 					</OnVerticalScroll>
 					<OnShow>
 						BinderScrollBar_Update()
@@ -841,7 +829,7 @@
 				</Scripts>
 			</Button>
 		
-		  <Button name="KeyBound_Button" inherits="UIPanelButtonTemplate" text="Edit Keybinds">
+		<Button name="KeyBound_Button" inherits="UIPanelButtonTemplate" text="Edit Keybinds">
 				<Size>
 					<AbsDimension x="150" y="35"/>
 				</Size>
