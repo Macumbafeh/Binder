@@ -7,7 +7,7 @@ if (GetLocale() ~= "zhTW") then
 	return
 end
 
-local REVISION = 90000 + tonumber(("$Revision: 83 $"):match("%d+"))
+local REVISION = 90000 + tonumber(("$Revision: 92 $"):match("%d+"))
 if (LibKeyBoundLocale10 and REVISION <= LibKeyBoundLocale10.REVISION) then
 	return
 end
@@ -38,6 +38,32 @@ LibKeyBoundLocale10 = {
 	["Button3"] = "鼠3",
 	["Button4"] = "鼠4",
 	["Button5"] = "鼠5",
+	["Button6"] = "鼠6",
+	["Button7"] = "鼠7",
+	["Button8"] = "鼠8",
+	["Button9"] = "鼠9",
+	["Button10"] = "鼠10",
+	["Button11"] = "鼠11",
+	["Button12"] = "鼠12",
+	["Button13"] = "鼠13",
+	["Button14"] = "鼠14",
+	["Button15"] = "鼠15",
+	["Button16"] = "鼠16",
+	["Button17"] = "鼠17",
+	["Button18"] = "鼠18",
+	["Button19"] = "鼠19",
+	["Button20"] = "鼠20",
+	["Button21"] = "鼠21",
+	["Button22"] = "鼠22",
+	["Button23"] = "鼠23",
+	["Button24"] = "鼠24",
+	["Button25"] = "鼠25",
+	["Button26"] = "鼠26",
+	["Button27"] = "鼠27",
+	["Button28"] = "鼠28",
+	["Button29"] = "鼠29",
+	["Button30"] = "鼠30",
+	["Button31"] = "鼠31",
 	["Capslock"] = "Cp",
 	["Clear"] = "Cl",
 	["Delete"] = "Del",

@@ -1,6 +1,6 @@
 --[[
 Name: LibKeyBound-1.0
-Revision: $Rev: 82 $
+Revision: $Rev: 95 $
 Author(s): Gello, Maul, Toadkiller, Tuller
 Website: http://www.wowace.com/wiki/LibKeyBound-1.0
 Documentation: http://www.wowace.com/wiki/LibKeyBound-1.0
@@ -10,7 +10,7 @@ Dependencies: CallbackHandler-1.0
 --]]
 
 local MAJOR = 'LibKeyBound-1.0'
-local MINOR = tonumber(("$Revision: 82 $"):match("(%d+)")) + 90000
+local MINOR = tonumber(("$Revision: 95 $"):match("(%d+)")) + 90000
 
 --[[
 	LibKeyBound-1.0
@@ -32,6 +32,7 @@ local LibKeyBound, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 if not LibKeyBound then return end -- no upgrade needed
 
 local _G = _G
+local NUM_MOUSE_BUTTONS = 31
 
 -- CallbackHandler
 LibKeyBound.events = LibKeyBound.events or _G.LibStub('CallbackHandler-1.0'):New(LibKeyBound)
@@ -46,7 +47,7 @@ function LibKeyBound:Initialize()
 	do
 		local f = CreateFrame('Frame', 'KeyboundDialog', UIParent)
 		f:SetFrameStrata('DIALOG')
-		f:SetToplevel(true) 
+		f:SetToplevel(true)
 		f:EnableMouse(true)
 		f:SetClampedToScreen(true)
 		f:SetWidth(360)
@@ -66,12 +67,12 @@ function LibKeyBound:Initialize()
 
 		local tr = f:CreateTitleRegion()
 		tr:SetAllPoints(f)
-		
+
 		local header = f:CreateTexture(nil, 'ARTWORK')
 		header:SetTexture('Interface\\DialogFrame\\UI-DialogBox-Header')
 		header:SetWidth(256); header:SetHeight(64)
 		header:SetPoint('TOP', 0, 12)
-		
+
 		local title = f:CreateFontString('ARTWORK')
 		title:SetFontObject('GameFontNormal')
 		title:SetPoint('TOP', header, 'TOP', 0, -14)
@@ -386,9 +387,11 @@ function LibKeyBound:ToShortKey(key)
 		key = key:gsub('DIVIDE', '%/')
 
 		key = key:gsub('BACKSPACE', L['Backspace'])
-		key = key:gsub('BUTTON3', L['Button3'])
-		key = key:gsub('BUTTON4', L['Button4'])
-		key = key:gsub('BUTTON5', L['Button5'])
+
+		for i = 1, NUM_MOUSE_BUTTONS do
+			key = key:gsub('BUTTON' .. i, L['Button' .. i])
+		end
+
 		key = key:gsub('CAPSLOCK', L['Capslock'])
 		key = key:gsub('CLEAR', L['Clear'])
 		key = key:gsub('DELETE', L['Delete'])
@@ -457,8 +460,7 @@ function LibKeyBound.Binder:OnKeyDown(key)
 	if not button then return end
 
 	if (key == 'UNKNOWN' or key == 'LSHIFT' or key == 'RSHIFT' or
-		key == 'LCTRL' or key == 'RCTRL' or key == 'LALT' or key == 'RALT' or
-		key == 'LeftButton' or key == 'RightButton') then
+		key == 'LCTRL' or key == 'RCTRL' or key == 'LALT' or key == 'RALT') then
 		return
 	end
 
@@ -474,31 +476,42 @@ function LibKeyBound.Binder:OnKeyDown(key)
 		return
 	end
 
-	if key == 'MiddleButton' then
-		key = 'BUTTON3'
-	elseif key == 'Button4' then
-		key = 'BUTTON4'
-	elseif key == 'Button5' then
-		key = 'BUTTON5'
-	end
-
 	if key == 'ESCAPE' then
 		self:ClearBindings(button)
 		LibKeyBound:Set(button)
 		return
 	end
 
-	if IsShiftKeyDown() then
-		key = 'SHIFT-' .. key
-	end
-	if IsControlKeyDown() then
-		key = 'CTRL-' .. key
-	end
-	if IsAltKeyDown() then
-		key = 'ALT-' .. key
+	-- dont bind unmodified left or right button
+	if (key == 'LeftButton' or key == 'RightButton') and not IsModifierKeyDown() then
+		return
 	end
 
-	if MouseIsOver(button) then
+	--handle mouse button substitutions
+	if key == 'LeftButton' then
+		key = 'BUTTON1'
+	elseif key == 'RightButton' then
+		key = 'BUTTON2'
+	elseif key == 'MiddleButton' then
+		key = 'BUTTON3'
+	elseif key:match('^Button%d+$') then
+		key = key:upper()
+	end
+
+	--apply modifiers
+	if IsModifierKeyDown() then
+		if IsShiftKeyDown() then
+			key = 'SHIFT-' .. key
+		end
+		if IsControlKeyDown() then
+			key = 'CTRL-' .. key
+		end
+		if IsAltKeyDown() then
+			key = 'ALT-' .. key
+		end
+	end
+
+	if button:IsMouseOver() then
 		self:SetKey(button, key)
 		LibKeyBound:Set(button)
 	end
